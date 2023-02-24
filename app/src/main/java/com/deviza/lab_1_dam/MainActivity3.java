@@ -1,7 +1,5 @@
 package com.deviza.lab_1_dam;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,14 +26,15 @@ public class MainActivity3 extends AppCompatActivity {
     private static final String TAG =
             "Sdcard";
     private TextView tv;
-    String FileN="INF_Aplic.txt";
+    String FileN = "INF_Aplic.txt";
     Context MyContext;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-        tv = (TextView)findViewById(R.id.textView2);
+        tv = (TextView) findViewById(R.id.textView2);
         tv.setText("Test");
         WriteIntern();
         ReadIntern();
@@ -42,13 +43,12 @@ public class MainActivity3 extends AppCompatActivity {
         readSDFile();
     }
 
-    private void WriteIntern()
-    {
-        String File_Name= "Proba.txt"; //gives file name
-        String MyInfo="Success Internal Write info!"; //define data
+    private void WriteIntern() {
+        String File_Name = "Proba.txt"; //gives file name
+        String MyInfo = "Success Internal Write info!"; //define data
         File dir = new File(this.getFilesDir(),
                 "mydir");
-        if(!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdir();
         }
         try {
@@ -60,17 +60,20 @@ public class MainActivity3 extends AppCompatActivity {
             writer.close();
             tv.append("\nSucces: " + " WRITE_Internal_STORAGE,Success Internal Write info! ");
             writer.close();
-        }
-        catch(Exception e){
-            tv.append("\nProblems: " +" WRITE_Internal_STORAGE ");
+        } catch (Exception e) {
+            tv.append("\nProblems: " + " WRITE_Internal_STORAGE ");
         }
     }
-    private void ReadIntern() { String File_Name= "Proba.txt";
+
+    private void ReadIntern() {
+        String File_Name = "Proba.txt";
 //gives file name
-        String MyInfo="Success Internal Write info!"; //define data
+        String MyInfo = "Success Internal Write info!"; //define data
         File dir = new File(this.getFilesDir(),
                 "mydir");
-        if(!dir.exists()){ dir.mkdir(); }
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         try {
             File mf = new File(dir, File_Name);
             BufferedReader br = new
@@ -78,14 +81,13 @@ public class MainActivity3 extends AppCompatActivity {
             tv.append(br.readLine());
             tv.append("\nSucces: " + "read_Internal_STORAGE,Success Internal read info! ");
             br.close();
-        }
-        catch(Exception e){
-            tv.append("\nProblems: " +" Read_Internal_STORAGE ");
+        } catch (Exception e) {
+            tv.append("\nProblems: " + " Read_Internal_STORAGE ");
             Log.i(TAG, "Problems: " + " Read_Internal_STORAGE ");
         }
     }
 
-    private void checkExternalMedia(){
+    private void checkExternalMedia() {
         boolean mExternalStorageAvailable =
                 false;
         boolean mExternalStorageWriteable =
@@ -106,12 +108,12 @@ public class MainActivity3 extends AppCompatActivity {
             mExternalStorageAvailable = mExternalStorageWriteable = false;
         }
         tv.append("\n\nExternal Media: readable = "
-                +mExternalStorageAvailable+"; writable = "+mExternalStorageWriteable);
+                + mExternalStorageAvailable + "; writable = " + mExternalStorageWriteable);
     }
 
-    private void writeToSDFile(){
+    private void writeToSDFile() {
         File root = android.os.Environment.getExternalStorageDirectory();
-        tv.append("\nExternal file system root:"+root);
+        tv.append("\nExternal file system root:" + root);
         File dir = new File
                 (root.getAbsolutePath() + "/download");
         dir.mkdirs();
@@ -131,26 +133,25 @@ public class MainActivity3 extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        tv.append("\n\nFile written to:\n"+file);
+        tv.append("\n\nFile written to:\n" + file);
     }
 
-    public void readSDFile()
-    { // read from SD card file data in the text box
+    public void readSDFile() { // read from SD card file data in the text box
         String aDataRow = "";
         String aBuffer = "";
-        String [] ss;
+        String[] ss;
         try {
             @SuppressLint("SdCardPath") File myFile = new
-                    File("/mnt/sdcard/download/"+FileN);
+                    File("/mnt/sdcard/download/" + FileN);
             FileInputStream fIn = new FileInputStream(myFile);
 
-            BufferedReader myReader = new BufferedReader( new InputStreamReader(fIn));
+            BufferedReader myReader = new BufferedReader(new InputStreamReader(fIn));
             while ((aDataRow = myReader.readLine()) != null) {
                 aBuffer += aDataRow + "\n";
             }
-            tv.append("\n"+aBuffer);
+            tv.append("\n" + aBuffer);
             myReader.close();
-            Toast.makeText(getBaseContext(), "Done reading SD 'IA181.txt'"+aBuffer, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "Done reading SD 'IA181.txt'" + aBuffer, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getBaseContext(),
                     e.getMessage(),

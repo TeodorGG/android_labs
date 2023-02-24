@@ -24,14 +24,14 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     val MENU_RESET_ID = 1
     val MENU_QUIT_ID = 2
     var etN1: EditText? = null
-    var etNum2:EditText? = null
+    var etNum2: EditText? = null
     lateinit var btnAdd: Button
-    lateinit var btnSub:Button
-    lateinit var btnMult:Button
-    lateinit var btnDiv:Button
-    lateinit var buttBack:Button
-    lateinit var buttonGet:Button
-    lateinit var textShow:TextView
+    lateinit var btnSub: Button
+    lateinit var btnMult: Button
+    lateinit var btnDiv: Button
+    lateinit var buttBack: Button
+    lateinit var buttonGet: Button
+    lateinit var textShow: TextView
 
     var tvResult: TextView? = null
     var oper = ""
@@ -65,29 +65,26 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             var ss: Array<String?>
             try {
                 @SuppressLint("SdCardPath") val myFile = File("/storage/emulated/0/text1.txt")
-                Log.d("asd","asdasd1")
+                Log.d("asd", "asdasd1")
                 val fIn = FileInputStream(myFile)
-                Log.d("asd","asdasd2")
+                Log.d("asd", "asdasd2")
 
                 val myReader = BufferedReader(InputStreamReader(fIn))
-                Log.d("asd","asdasd3")
+                Log.d("asd", "asdasd3")
 
                 while (myReader.readLine().also { aDataRow = it } != null) {
                     aBuffer += aDataRow.trimIndent()
                 }
-                textShow.append(aBuffer.trimIndent()
+                textShow.append(
+                    aBuffer.trimIndent()
                 )
                 myReader.close()
                 Toast.makeText(
-                    baseContext,
-                    "Done reading SD 'IA181.txt'$aBuffer",
-                    Toast.LENGTH_SHORT
+                    baseContext, "Done reading SD 'IA181.txt'$aBuffer", Toast.LENGTH_SHORT
                 ).show()
             } catch (e: Exception) {
                 Toast.makeText(
-                    baseContext,
-                    e.message,
-                    Toast.LENGTH_SHORT
+                    baseContext, e.message, Toast.LENGTH_SHORT
                 ).show()
             }
         }
@@ -98,9 +95,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         var num2 = 0f
         var result = 0f
 
-        if (TextUtils.isEmpty(etN1!!.text.toString())
-            || TextUtils.isEmpty(etNum2!!.text.toString()))
-        {
+        if (TextUtils.isEmpty(etN1!!.text.toString()) || TextUtils.isEmpty(etNum2!!.text.toString())) {
             return
         }
         num1 = etN1!!.text.toString().toFloat()
@@ -128,7 +123,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         var results = "$num1 $oper $num2 = $result"
         tvResult!!.text = ""
         GlobalScope.launch {
-            for( c : Char in results){
+            for (c: Char in results) {
                 tvResult!!.text = "${tvResult!!.text}$c"
                 delay(100)
             }
